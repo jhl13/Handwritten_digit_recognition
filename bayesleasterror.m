@@ -5,10 +5,11 @@ function [result,v]=bayesleasterror(testfeature, template_feature, template_num)
 
 Pw = zeros(10, 1); % 先验概率
 P = zeros(10, 100); % wi类的 j个特征的均值
+PwX = zeros(10, 1); % 后验概率
 
-s_cov = []; %各类别协方差
-s_inv = []; %协方差矩阵的逆
-s_det = []; %协方差矩阵的行列式
+s_cov = []; %各类别协方差 (10, 100, 100)
+s_inv = []; %协方差矩阵的逆 (10, 100, 100)
+s_det = []; %协方差矩阵的行列式 (10, 100, 100)
 
 [total_num, ~] = size(template_feature);
 Pw = template_num / total_num;
@@ -20,6 +21,15 @@ for i=1:10
         P(i,j) = (numof1+1)/(template_num(i)+2);
     end
     i_feature = template_feature(template_feature(:, 1) == i-1,:);
-    s_cov(i).dat = cov(i_feature(:,2:101));
+    s_cov(i).dat = cov(i_feature(:,2:101)); % 求各类别的协方差矩阵
+    s_inv(i).dat = inv(s_cov(i).dat); % 求协方差矩阵的逆矩阵
+    s_det(i) = det(s_cov(i).dat); % 求协方差矩阵的行列式
 end
+
+for i=1:10
+    PwX(i) = (testfeature - P(i))' * s_inv(i).dat * (testfeature - P(i))...
+        * (-0.5) + log(Pw(i)) + log(abs(s_det(i))) * (-0.5);
+end
+[v,result]=max(PwX);
+result=result-1;
 end

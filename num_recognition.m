@@ -69,7 +69,8 @@ subdir = dir(maindir);
 
 all_images = uint8([]);
 template_num = zeros(10, 1);
-template_feature = uint8([]);
+%template_feature = uint8([]);
+template_feature = double([]);
 total_image_num = 0;
 
 for i = 1 : length(subdir)
@@ -87,7 +88,7 @@ for i = 1 : length(subdir)
         total_image_num = total_image_num + 1;
         imagepath = fullfile(maindir, subdir(i).name, images(j).name);
         imagedata = imread(imagepath);
-        [feature,featureimg] = getfeature(reshape(imagedata, [28,28]));
+        [feature,featureimg] = getfeature(reshape(imagedata, [28,28]), 1);
         template_feature(total_image_num, :) = [i - 3; feature];
         % all_images(i-2, j, :, :) = imagedata;
     end
@@ -161,10 +162,10 @@ new_axes=copyobj(handles.axes1,new_f_handle); %axes1是GUI界面内要保存图线的Tag，
 h = getframe(new_axes);
 %h=getframe(handles.axes1);
 h.cdata = imresize(h.cdata, [240, 240]);
-[feature,featureimg]=getfeature(im2bw(h.cdata,0.5)*255);
+[feature,featureimg]=getfeature(im2bw(h.cdata,0.5)*255, 1);
 axes(handles.axes2); 
 imshow(featureimg)
-[result,v]=BayesErzhishuju(feature, template_feature, template_num)
+[result,v]=bayesleasterror(feature, template_feature, template_num)
 msgbox("result:"+string(result))
 % --- Executes on mouse press over figure background, over a disabled or
 % --- inactive control, or over an axes background.
