@@ -28,7 +28,7 @@ for i=1:10
     PXw(i)=prod(Pcopy,2);
 end
 PX=sum(Pw.*PXw);
-PwX=(Pw.*PXw)/PX
+PwX=(Pw.*PXw)/PX;
 [v,result]=max(PwX);
 result=result-1;
 end

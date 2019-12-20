@@ -5,7 +5,7 @@ function [feature,featureimg]=getfeature(image, is_float)
 %% 找出数字区域
 [ax,by] = find(image<=100);
 image = image(min(ax):max(ax),min(by):max(by));
-image = imresize(image, [100, 80]);
+image = imresize(image, [50, 50]);
 %% 计算格点
 [N,M] = size(image);
 row = floor(N/10);
@@ -27,7 +27,7 @@ else
     for i=1:1:10
         for j=1:1:10
             k=k+1;
-            sign(i,j)=(length(find(image(1+(i-1)*row:i*row,1+(j-1)*col:j*col)<=100))/area);
+            sign(i,j)=(length(find(image(1+(i-1)*row:i*row,1+(j-1)*col:j*col)<=160))/area);
             feature(k)=1 - sign(i,j);
         end
     end

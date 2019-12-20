@@ -22,15 +22,13 @@ for i=1:10
     end
     i_feature = template_feature(template_feature(:, 1) == i-1,:);
     s_cov(i).dat = cov(i_feature(:,2:101)); % 求各类别的协方差矩阵
-    s_inv(i).dat = inv(s_cov(i).dat); % 求协方差矩阵的逆矩阵
+    s_inv(i).dat = pinv(s_cov(i).dat); % 求协方差矩阵的逆矩阵
     s_det(i) = det(s_cov(i).dat); % 求协方差矩阵的行列式
 end
 
 for i=1:10
-    size(testfeature)
-    size(P(i, 2:101))
     PwX(i) = (testfeature - P(i, 2:101)')' * s_inv(i).dat * (testfeature - P(i, 2:101)')...
-        * (-0.5) + log(Pw(i)) + log(abs(s_det(i))) * (-0.5);
+        * (-0.5) + log(Pw(i));% + log(abs(s_det(i))) * (-0.5)
 end
 [v,result]=max(PwX);
 result=result-1;
