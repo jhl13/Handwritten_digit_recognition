@@ -1,4 +1,4 @@
-function [result,v]=bayesleasterror(testfeature, template_feature, template_num)
+function [result,v]=BayesLeasterror(testfeature, template_feature, template_num)
 % testfeature = (100, 1)
 % template_feature = (num, 101) 第一个为类别，后100个为特征
 % template_num = (10, 1)
@@ -27,7 +27,9 @@ for i=1:10
 end
 
 for i=1:10
-    PwX(i) = (testfeature - P(i))' * s_inv(i).dat * (testfeature - P(i))...
+    size(testfeature)
+    size(P(i, 2:101))
+    PwX(i) = (testfeature - P(i, 2:101)')' * s_inv(i).dat * (testfeature - P(i, 2:101)')...
         * (-0.5) + log(Pw(i)) + log(abs(s_det(i))) * (-0.5);
 end
 [v,result]=max(PwX);

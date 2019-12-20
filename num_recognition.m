@@ -165,7 +165,7 @@ h.cdata = imresize(h.cdata, [240, 240]);
 [feature,featureimg]=getfeature(im2bw(h.cdata,0.5)*255, 1);
 axes(handles.axes2); 
 imshow(featureimg)
-[result,v]=bayesleasterror(feature, template_feature, template_num)
+[result,v]=BayesLeasterror(feature, template_feature, template_num)
 msgbox("result:"+string(result))
 % --- Executes on mouse press over figure background, over a disabled or
 % --- inactive control, or over an axes background.
