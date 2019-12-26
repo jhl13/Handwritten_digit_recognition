@@ -9,8 +9,6 @@ PXw = zeros(10, 1); % 类条件概率
 PwX = zeros(10, 1); % 后验概率
 
 [total_num, ~] = size(template_feature);
-
-
 Pw = template_num / total_num;
 
 for i=1:10

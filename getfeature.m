@@ -31,8 +31,8 @@ else
             feature(k)=1 - sign(i,j);
         end
     end
-    featureimg=1 - sign;
-    %featureimg = 1 - im2bw(sign,0.01);
+    %featureimg=1 - sign;
+    featureimg = 1 - im2bw(sign,0.01);
 end
 end
 

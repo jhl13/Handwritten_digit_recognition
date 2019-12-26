@@ -162,7 +162,7 @@ new_axes=copyobj(handles.axes1,new_f_handle); %axes1是GUI界面内要保存图线的Tag，
 h = getframe(new_axes);
 %h=getframe(handles.axes1);
 h.cdata = imresize(h.cdata, [240, 240]);
-[feature,featureimg]=getfeature(im2bw(h.cdata,0.5)*255, 1);
+[feature,featureimg]=getfeature(im2bw(h.cdata)*255, 1);
 axes(handles.axes2); 
 imshow(featureimg)
 [result,v]=BayesLeasterror(feature, template_feature, template_num)
