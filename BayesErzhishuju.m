@@ -4,7 +4,7 @@ function [result,v]=BayesErzhishuju(testfeature, template_feature, template_num)
 % template_num = (10, 1)
 
 Pw = zeros(10, 1); % 先验概率
-P = zeros(10, 100); % wi类的 j个特征
+P = zeros(10, 101); % wi类的 j个特征
 PXw = zeros(10, 1); % 类条件概率
 PwX = zeros(10, 1); % 后验概率
 
@@ -14,7 +14,7 @@ Pw = template_num / total_num;
 for i=1:10
     for j=2:101
         class_index = template_feature(:, 1) == i-1;
-        numof1=sum(template_feature(class_index,j)==1);
+        numof1=sum(template_feature(class_index,j));
         P(i,j)=(numof1+1)/(template_num(i)+2);
     end
 end

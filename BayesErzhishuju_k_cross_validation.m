@@ -65,6 +65,8 @@ for i = 1 : length(subdir)
         for j = down_side:up_side
             imagepath = fullfile(maindir, subdir(i).name, images(j).name);
             imagedata = imread(imagepath);
+            thresh=graythresh(imagedata);%确定二值化阈值
+            imagedata=im2bw(imagedata,thresh);%对图像二值化
             [feature,featureimg] = getfeature(reshape(imagedata, [28,28]));
             if k_i == 1
                 floder_1_image_num = floder_1_image_num + 1;
