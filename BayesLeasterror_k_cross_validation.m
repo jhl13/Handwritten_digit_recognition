@@ -147,6 +147,8 @@ function [accuracy]=calculate_acc(floder_test_feature, floder_test_image_num, tr
     accuracy = 0;
     correct_num = 0;
     test_image_num = floder_test_image_num;
+    i_num = zeros(10, 1);
+    true_num = zeros(10, 1);
     for test_i = 1:length(floder_test_feature)
         i_feature_label = floder_test_feature(test_i,:);
         label_i = i_feature_label(1);
@@ -154,7 +156,10 @@ function [accuracy]=calculate_acc(floder_test_feature, floder_test_image_num, tr
         [result,v]=BayesLeasterror(i_feature', train_feature, train_num);
         if label_i == result
             correct_num = correct_num + 1;
+            true_num(label_i + 1) = true_num(label_i + 1) + 1;
         end
+        i_num(label_i + 1) = i_num(label_i + 1) + 1;
     end
+    true_num
     accuracy = correct_num / test_image_num;
 end
