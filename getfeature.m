@@ -42,7 +42,7 @@ else
         for j=1:1:5
             k=k+1;
             sign(i,j)=(length(find(image(1+(i-1)*row:i*row,1+(j-1)*col:j*col)==0))/area);
-            feature(k)=sign(i,j)-0.5;
+            feature(k)=sign(i,j);
         end
     end
     %featureimg=1 - sign;
