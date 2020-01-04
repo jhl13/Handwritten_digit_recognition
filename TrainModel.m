@@ -16,7 +16,7 @@ for num=1:class
         i = i + 1;
     end
 end
-%mean_data = mean(train_data(:, 2:26));
+mean_data = mean(train_data(:, 2:26));
 train_data(:, 2:26) = train_data(:, 2:26) - mean_data;
 train_data_shuffle = train_data(randperm(size(train_data, 1)), :);
 

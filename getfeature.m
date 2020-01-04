@@ -13,7 +13,7 @@ if (nargin<2)
     sign = zeros(10,10);
     feature = zeros(100,1);
     k=0;
-else
+else % 用于贝叶斯最小错误率分类、fisher分类器以及BP神经网络分类器
     %% 找出数字区域
     [ax,by] = find(image==0);
     image = image(min(ax):max(ax),min(by):max(by));
