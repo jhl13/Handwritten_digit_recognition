@@ -3,11 +3,12 @@
 % Load data
 i = 1;
 class = 10;
-image_per_class = 120;
+image_per_class = 90;
 train_data = double(zeros(class * image_per_class, 26));
 for num=1:class
     for n=1:image_per_class
         eval(['imagedata=imread(''E:\matlab_project\matlab_project\100_digit\' num2str(num-1) '\' num2str(num-1) '_' num2str(n) '.jpg'');'])
+        imagedata = imresize(imagedata, [28,28]);
         thresh=graythresh(imagedata);%确定二值化阈值
         imagedata=im2bw(imagedata,thresh);%对图像二值化
         [feature, featureimg] = getfeature(reshape(imagedata, [28,28]), 1);
@@ -24,8 +25,9 @@ i = 1;
 image_per_class = 30;
 validate_data = double(zeros(class * image_per_class, 26));
 for num=1:class
-    for n=121:(120+image_per_class)
+    for n=91:(90+image_per_class)
         eval(['imagedata=imread(''E:\matlab_project\matlab_project\100_digit\' num2str(num-1) '\' num2str(num-1) '_' num2str(n) '.jpg'');'])
+        imagedata = imresize(imagedata, [28,28]);
         thresh=graythresh(imagedata);%确定二值化阈值
         imagedata=im2bw(imagedata,thresh);%对图像二值化
         [feature, featureimg] = getfeature(reshape(imagedata, [28,28]), 1);
@@ -41,6 +43,7 @@ test_data = double(zeros(class * image_per_class, 26));
 for num=1:class
     for n=121:(120+image_per_class)
         eval(['imagedata=imread(''E:\matlab_project\matlab_project\100_digit\' num2str(num-1) '\' num2str(num-1) '_' num2str(n) '.jpg'');'])
+        imagedata = imresize(imagedata, [28,28]);
         thresh=graythresh(imagedata);%确定二值化阈值
         imagedata=im2bw(imagedata,thresh);%对图像二值化
         [feature, featureimg] = getfeature(reshape(imagedata, [28,28]), 1);
@@ -188,8 +191,8 @@ for test_i = 1:size(test_data,1)
 end
 best_validate_acc
 test_acc = test_acc / size(test_data,1)
-eval('save model_best_120.mat w1 w2 theta1 theta2')
-eval('save result_120.mat best_validate_acc test_acc')
+eval('save model_best.mat w1 w2 theta1 theta2')
+eval('save result.mat best_validate_acc test_acc')
 
 eval('k = 1:size(validate_plot, 2); plot(k, validate_plot); hold on; plot(k, acc_plot); ')
-saveas(gcf, 'acc_120', 'png')
+saveas(gcf, 'acc', 'png')
